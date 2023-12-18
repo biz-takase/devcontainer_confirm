@@ -1,0 +1,22 @@
+{
+    "name": "laravel dev container",
+    "dockerComposeFile": ["docker-compose.yml"],
+    "service": "php",
+    // 開いたコンテナ内のワークスペースのパス
+    "workspaceFolder": "/var/www/html",
+    // "workspaceMount": "type=bind,source=${localWorkspaceFolder},target=/var/www/html",
+    // コンテナ内のユーザー名
+    "remoteUser": "vscode",
+    // コンテナを閉じた時のアクション
+    "shutdownAction": "stopCompose",
+    // リモート先のVS Codeにインストールする拡張機能
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "xdebug.php-debug",
+                "neilbrayfield.php-docblocker",
+                "bmewburn.vscode-intelephense-client"
+            ]
+        }
+    }
+  }
