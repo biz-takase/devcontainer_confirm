@@ -1,1 +1,1 @@
-.devcontainer/ssl/*
+.devcontainer/docker/nginx/ssl
