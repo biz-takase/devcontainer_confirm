@@ -20,7 +20,9 @@ RUN apt-get -y install curl \
     git \
     unzip \
     zip \
-    vim
+    vim \
+    nodejs \
+    npm
 
 # 時刻を日本時間に変更
 RUN apt-get update && apt-get install -y tzdata && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -35,11 +37,11 @@ ENV LANGUAGE ja_JP:ja
 # phpのログディレクトリ作成
 
 # php extensions install
-RUN apt-get update \
-    && apt-get install -y zlib1g-dev libzip-dev wget gnupg \
+RUN apt-get install -y zlib1g-dev libzip-dev wget gnupg \
     && docker-php-ext-install zip opcache \
     && apt-get install -y libicu-dev \
-    && docker-php-ext-install intl bcmath
+    && docker-php-ext-install intl bcmath \
+    && docker-php-ext-install pdo pdo_mysql
 
 # xdebug
 RUN pecl install xdebug \

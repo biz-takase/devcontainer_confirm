@@ -1,10 +1,11 @@
 version: "3.9"
 services:
   nginx:
-    container_name: laravel_nginx
+    container_name: nginx
     build:
       context: ./docker/nginx
       dockerfile: Dockerfile
+    image: nginx:1.24.0
     volumes:
       - type: bind
         source: ../
@@ -25,7 +26,7 @@ services:
       - php
 
   php:
-    container_name: laravel_php
+    container_name: php
     build:
       context: ./docker/php
       dockerfile: Dockerfile
@@ -34,10 +35,44 @@ services:
       - type: bind
         source: ../
         target: /var/www/html
+      - type: bind
+        source: ./docker/php/php.ini
+        target: /usr/local/etc/php/php.ini
+    ports:
+      # vite用のportを開放
+      # HMRに対応するため、vite用のportを別途開放し、nginx->viteサーバーへアクセス
+      - 5173:5173
     user: "${USER_ID}:${USER_GID}"
     networks:
       app-net:
         ipv4_address: 172.16.238.20
+  mysql:
+    container_name: mysql
+    build:
+      context: ./docker/mysql
+      dockerfile: Dockerfile
+    image: mysql:8.2.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: Asia/Tokyo
+    volumes:
+      - type: volume
+        source: mysql-data
+        target: /var/lib/mysql
+      - type: bind
+        source: ./docker/mysql/my.cnf
+        target: /etc/mysql/conf.d/my.cnf
+    networks:
+      app-net:
+        ipv4_address: 172.16.238.30
+
+volumes:
+  mysql-data:
 
 networks:
   app-net:

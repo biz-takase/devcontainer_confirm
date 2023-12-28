@@ -15,7 +15,9 @@
             "extensions": [
                 "xdebug.php-debug",
                 "neilbrayfield.php-docblocker",
-                "bmewburn.vscode-intelephense-client"
+                "bmewburn.vscode-intelephense-client",
+                "esbenp.prettier-vscode",
+                "onecentlin.laravel-blade"
             ]
         }
     }
