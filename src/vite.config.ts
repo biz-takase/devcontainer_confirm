@@ -19,6 +19,9 @@ export default defineConfig({
         react()
     ],
     server: {
+        // デフォルトでは外部アドレスで公開するようにオプションを追加
+        // packege.json scripts dev で vire --host と同じ動きとなる
+        host: true,
         // 以下のパラメータを指定しないとpublic/hotファイルのURLが[::]になってしまうため、明示的にlocalhostに変更
         hmr: {
             host: 'localhost'
