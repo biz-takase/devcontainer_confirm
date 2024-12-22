@@ -1,4 +1,4 @@
-version: "3.9"
+# version: "3.9"
 services:
   nginx:
     container_name: nginx
@@ -51,7 +51,7 @@ services:
     build:
       context: ./docker/mysql
       dockerfile: Dockerfile
-    image: mysql:8.2.0
+    image: mysql:9.1.0
     ports:
       - "3306:3306"
     environment:
